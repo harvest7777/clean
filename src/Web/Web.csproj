@@ -32,6 +32,16 @@
     <PackageReference Include="Scalar.AspNetCore" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="ClientApp2\.postcssrc.json" />
+    <_ContentIncludedByDefault Remove="ClientApp2\angular.json" />
+    <_ContentIncludedByDefault Remove="ClientApp2\package-lock.json" />
+    <_ContentIncludedByDefault Remove="ClientApp2\package.json" />
+    <_ContentIncludedByDefault Remove="ClientApp2\tsconfig.app.json" />
+    <_ContentIncludedByDefault Remove="ClientApp2\tsconfig.json" />
+    <_ContentIncludedByDefault Remove="ClientApp2\tsconfig.spec.json" />
+  </ItemGroup>
+
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
