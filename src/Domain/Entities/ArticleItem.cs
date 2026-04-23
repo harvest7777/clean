@@ -1,11 +1,31 @@
 namespace clean.Domain.Entities;
 
-public class ArticleItem: BaseAuditableEntity
+public class ArticleItem : BaseAuditableEntity
 {
+    public ArticleItem()
+    {
+        AddDomainEvent(new ArticleItemCreatedEvent(this));
+    }
 
-    // shoudl have title and content, lets keep ti as simple as possible
-    // should have status which is articlestatus (in enum)
-    // shoudl have a .publish() method which has some business ulres (title and content have to be not null to be published)
-    // wait actually i notice that for this repo, they are very crud first, so no .publish method
-    // but the setter for the status should runt he business rules checks
+    public string? Title { get; set; }
+
+    public string? Content { get; set; }
+
+    private ArticleStatus _status;
+    public ArticleStatus Status
+    {
+        get => _status;
+        set
+        {
+            if (value == ArticleStatus.Published && _status != ArticleStatus.Published)
+            {
+                if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(Content))
+                    throw new InvalidOperationException("Title and Content must not be empty to publish an article.");
+
+                AddDomainEvent(new ArticleItemPublishedEvent(this));
+            }
+
+            _status = value;
+        }
+    }
 }

@@ -106,5 +106,16 @@ public class ApplicationDbContextInitialiser
 
             await _context.SaveChangesAsync();
         }
+
+        if (!_context.ArticleItems.Any())
+        {
+            _context.ArticleItems.AddRange(
+                new ArticleItem { Title = "Getting Started", Content = "Welcome to the articles section. This is your first article." },
+                new ArticleItem { Title = "How to Use the API", Content = "This article explains how to interact with the REST API endpoints." },
+                new ArticleItem { Title = "About Clean Architecture", Content = "Clean Architecture separates concerns into layers: Domain, Application, Infrastructure, and Web." }
+            );
+
+            await _context.SaveChangesAsync();
+        }
     }
 }
