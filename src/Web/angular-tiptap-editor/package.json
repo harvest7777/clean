@@ -34,7 +34,8 @@
     "copy-lib-assets": "cp README.md dist/angular-tiptap-editor/ && cp LICENSE dist/angular-tiptap-editor/ && cp CHANGELOG.md dist/angular-tiptap-editor/",
     "lint": "ng lint",
     "format": "prettier --write .",
-    "test:e2e": "npx playwright test"
+    "test:e2e": "npx playwright test",
+    "generate:api": "ng-openapi-gen"
   },
   "dependencies": {
     "@angular/common": "^20.0.0",
