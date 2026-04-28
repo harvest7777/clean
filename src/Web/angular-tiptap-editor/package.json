@@ -24,7 +24,7 @@
   "homepage": "https://github.com/FloGeez/angular-tiptap-editor#readme",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --port ${PORT:-4200}",
     "build": "ng build",
     "build:lib": "ng build angular-tiptap-editor && npm run copy-lib-assets",
     "watch:lib": "ng build angular-tiptap-editor --watch",
