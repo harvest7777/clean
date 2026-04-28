@@ -1017,7 +1017,7 @@ uploadHandler: ImageUploadHandler = (ctx) =&gt; {
 
 <p style="text-align: center;">
     <a href="https://github.com/FloGeez/angular-tiptap-editor" target="_blank">${this.ui().github}</a> • 
-    <a href="https://www.npmjs.com/package/@flogeez/angular-tiptap-editor" target="_blank">${this.ui().npm}</a>
+    <a href="https://www.npmjs.com/package/angular-tiptap-editor" target="_blank">${this.ui().npm}</a>
 </p>
 `.trim();
   }

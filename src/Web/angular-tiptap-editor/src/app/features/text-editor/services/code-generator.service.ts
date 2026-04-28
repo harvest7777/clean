@@ -291,7 +291,7 @@ export class AiLoadingNodeComponent {}
 
     const importsLines = [
       "import { Component } from '@angular/core';",
-      `import { ${baseImports.join(", ")} } from '@flogeez/angular-tiptap-editor';`,
+      `import { ${baseImports.join(", ")} } from 'angular-tiptap-editor';`,
     ];
 
     if (hasAiBlock || hasCounter || hasWarningBox) {
@@ -300,7 +300,7 @@ export class AiLoadingNodeComponent {}
     }
 
     if (hasAiBlock || hasCounter) {
-      importsLines.push("import { AteAngularNodeView } from '@flogeez/angular-tiptap-editor';");
+      importsLines.push("import { AteAngularNodeView } from 'angular-tiptap-editor';");
       importsLines.push("import { computed } from '@angular/core';");
     }
 
