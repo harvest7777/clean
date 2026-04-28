@@ -1,8 +1,10 @@
 import { Routes } from "@angular/router";
+import { authGuard } from "./core/guards/auth.guard";
 
 export const routes: Routes = [
   {
     path: "editor",
+    canActivate: [authGuard],
     loadChildren: () =>
       import("./features/text-editor/text-editor.routes").then(
         (m) => m.TEXT_EDITOR_ROUTES
