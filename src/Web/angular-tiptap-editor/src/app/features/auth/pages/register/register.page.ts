@@ -1,60 +1,40 @@
-import { Component, computed, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { RegisterFormComponent } from '../../components/register-form/register-form.component';
 
 @Component({
   selector: 'app-register-page',
-  standalone: true,
-  imports: [FormsModule, RouterLink],
-  template: `
-    <div class="auth-container">
-      <h1>Create account</h1>
-
-      @if (errorMessage()) {
-        <p class="error">{{ errorMessage() }}</p>
-      }
-
-      @if (isSuccess()) {
-        <p class="success">Account created! <a routerLink="/auth/login">Sign in</a></p>
-      } @else {
-        <form (ngSubmit)="onSubmit()">
-          <label>
-            Email
-            <input type="email" [(ngModel)]="email" name="email" required />
-          </label>
-          <label>
-            Password
-            <input type="password" [(ngModel)]="password" name="password" required />
-          </label>
-          <button type="submit" [disabled]="isLoading()">
-            {{ isLoading() ? 'Creating account…' : 'Create account' }}
-          </button>
-        </form>
-
-        <p>Already have an account? <a routerLink="/auth/login">Sign in</a></p>
-      }
-    </div>
-  `,
+  imports: [RegisterFormComponent],
+  templateUrl: './register.page.html',
 })
 export class RegisterPageComponent {
   private readonly auth = inject(AuthService);
 
-  email = '';
-  password = '';
+  readonly isLoading = signal(false);
+  readonly isSuccess = signal(false);
+  readonly errorMessage = signal<string | null>(null);
 
-  readonly isLoading = computed(() => this.auth.registerState().status === 'loading');
-  readonly isSuccess = computed(() => this.auth.registerState().status === 'success');
-  readonly errorMessage = computed(() => {
-    const s = this.auth.registerState();
-    return s.status === 'error' ? s.message : null;
-  });
+  async onSubmit(credentials: { email: string; password: string }): Promise<void> {
+    this.isLoading.set(true);
+    this.isSuccess.set(false);
+    this.errorMessage.set(null);
 
-  constructor() {
-    this.auth.resetRegisterState();
+    try {
+      await this.auth.register(credentials.email, credentials.password);
+      this.isSuccess.set(true);
+    } catch (e) {
+      this.errorMessage.set(this.getErrorMessage(e));
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 
-  onSubmit(): void {
-    this.auth.register(this.email, this.password);
+  private getErrorMessage(error: unknown): string {
+    if (error instanceof HttpErrorResponse) {
+      return error.error?.detail ?? error.error?.title ?? 'An unexpected error occurred';
+    }
+
+    return 'An unexpected error occurred';
   }
 }

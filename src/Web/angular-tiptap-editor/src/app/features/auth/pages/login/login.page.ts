@@ -1,62 +1,46 @@
-import { Component, computed, effect, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { LoginFormComponent } from '../../components/login-form/login-form.component';
 
 @Component({
   selector: 'app-login-page',
-  standalone: true,
-  imports: [FormsModule, RouterLink],
-  template: `
-    <div class="auth-container">
-      <h1>Sign in</h1>
-
-      @if (errorMessage()) {
-        <p class="error">{{ errorMessage() }}</p>
-      }
-
-      <form (ngSubmit)="onSubmit()">
-        <label>
-          Email
-          <input type="email" [(ngModel)]="email" name="email" required />
-        </label>
-        <label>
-          Password
-          <input type="password" [(ngModel)]="password" name="password" required />
-        </label>
-        <button type="submit" [disabled]="isLoading()">
-          {{ isLoading() ? 'Signing in…' : 'Sign in' }}
-        </button>
-      </form>
-
-      <p>Don't have an account? <a routerLink="/auth/register">Register</a></p>
-    </div>
-  `,
+  imports: [LoginFormComponent],
+  templateUrl: './login.page.html',
 })
 export class LoginPageComponent {
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
 
-  email = '';
-  password = '';
+  readonly isLoading = signal(false);
+  readonly errorMessage = signal<string | null>(null);
 
-  readonly isLoading = computed(() => this.auth.loginState().status === 'loading');
-  readonly errorMessage = computed(() => {
-    const s = this.auth.loginState();
-    return s.status === 'error' ? s.message : null;
-  });
+  async onSubmit(credentials: { email: string; password: string }): Promise<void> {
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
 
-  constructor() {
-    this.auth.resetLoginState();
+    try {
+      await this.auth.login(credentials.email, credentials.password);
 
-    effect(() => {
-      if (this.auth.loginState().status === 'success') {
-        this.router.navigate(['/editor']);
+      if (!(await this.auth.checkAuth())) {
+        this.errorMessage.set('Signed in but your session could not be verified. Please try again.');
+        return;
       }
-    });
+
+      await this.router.navigate(['/editor']);
+    } catch (e) {
+      this.errorMessage.set(this.getErrorMessage(e));
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 
-  onSubmit(): void {
-    this.auth.login(this.email, this.password);
+  private getErrorMessage(error: unknown): string {
+    if (error instanceof HttpErrorResponse) {
+      return error.error?.detail ?? error.error?.title ?? 'An unexpected error occurred';
+    }
+
+    return 'An unexpected error occurred';
   }
 }

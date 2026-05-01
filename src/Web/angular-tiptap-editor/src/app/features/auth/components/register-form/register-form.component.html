@@ -1,0 +1,27 @@
+<div class="auth-container">
+  <h1>Create account</h1>
+
+  @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+  }
+
+  @if (isSuccess()) {
+    <p class="success">Account created! <a routerLink="/auth/login">Sign in</a></p>
+  } @else {
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label>
+        Email
+        <input type="email" formControlName="email" />
+      </label>
+      <label>
+        Password
+        <input type="password" formControlName="password" />
+      </label>
+      <button type="submit" [disabled]="isLoading() || form.invalid">
+        {{ isLoading() ? 'Creating account…' : 'Create account' }}
+      </button>
+    </form>
+
+    <p>Already have an account? <a routerLink="/auth/login">Sign in</a></p>
+  }
+</div>
