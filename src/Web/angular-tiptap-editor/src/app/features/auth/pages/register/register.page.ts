@@ -1,6 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -11,11 +11,11 @@ import { AuthService } from '../../services/auth.service';
     <div class="auth-container">
       <h1>Create account</h1>
 
-      @if (error()) {
-        <p class="error">{{ error() }}</p>
+      @if (errorMessage()) {
+        <p class="error">{{ errorMessage() }}</p>
       }
 
-      @if (success()) {
+      @if (isSuccess()) {
         <p class="success">Account created! <a routerLink="/auth/login">Sign in</a></p>
       } @else {
         <form (ngSubmit)="onSubmit()">
@@ -27,8 +27,8 @@ import { AuthService } from '../../services/auth.service';
             Password
             <input type="password" [(ngModel)]="password" name="password" required />
           </label>
-          <button type="submit" [disabled]="loading()">
-            {{ loading() ? 'Creating account…' : 'Create account' }}
+          <button type="submit" [disabled]="isLoading()">
+            {{ isLoading() ? 'Creating account…' : 'Create account' }}
           </button>
         </form>
 
@@ -39,26 +39,22 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegisterPageComponent {
   private readonly auth = inject(AuthService);
-  private readonly router = inject(Router);
 
   email = '';
   password = '';
-  loading = signal(false);
-  error = signal<string | null>(null);
-  success = signal(false);
 
-  async onSubmit(): Promise<void> {
-    this.loading.set(true);
-    this.error.set(null);
+  readonly isLoading = computed(() => this.auth.registerState().status === 'loading');
+  readonly isSuccess = computed(() => this.auth.registerState().status === 'success');
+  readonly errorMessage = computed(() => {
+    const s = this.auth.registerState();
+    return s.status === 'error' ? s.message : null;
+  });
 
-    const result = await this.auth.register(this.email, this.password);
+  constructor() {
+    this.auth.resetRegisterState();
+  }
 
-    this.loading.set(false);
-
-    if (result.success) {
-      this.success.set(true);
-    } else {
-      this.error.set(result.error);
-    }
+  onSubmit(): void {
+    this.auth.register(this.email, this.password);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -11,8 +11,8 @@ import { AuthService } from '../../services/auth.service';
     <div class="auth-container">
       <h1>Sign in</h1>
 
-      @if (error()) {
-        <p class="error">{{ error() }}</p>
+      @if (errorMessage()) {
+        <p class="error">{{ errorMessage() }}</p>
       }
 
       <form (ngSubmit)="onSubmit()">
@@ -24,8 +24,8 @@ import { AuthService } from '../../services/auth.service';
           Password
           <input type="password" [(ngModel)]="password" name="password" required />
         </label>
-        <button type="submit" [disabled]="loading()">
-          {{ loading() ? 'Signing in…' : 'Sign in' }}
+        <button type="submit" [disabled]="isLoading()">
+          {{ isLoading() ? 'Signing in…' : 'Sign in' }}
         </button>
       </form>
 
@@ -39,20 +39,24 @@ export class LoginPageComponent {
 
   email = '';
   password = '';
-  loading = signal(false);
-  error = signal<string | null>(null);
 
-  async onSubmit(): Promise<void> {
-    this.loading.set(true);
-    this.error.set(null);
+  readonly isLoading = computed(() => this.auth.loginState().status === 'loading');
+  readonly errorMessage = computed(() => {
+    const s = this.auth.loginState();
+    return s.status === 'error' ? s.message : null;
+  });
 
-    const result = await this.auth.login(this.email, this.password);
+  constructor() {
+    this.auth.resetLoginState();
 
-    if (result.success) {
-      this.router.navigate(['/editor']);
-    } else {
-      this.error.set(result.error);
-      this.loading.set(false);
-    }
+    effect(() => {
+      if (this.auth.loginState().status === 'success') {
+        this.router.navigate(['/editor']);
+      }
+    });
+  }
+
+  onSubmit(): void {
+    this.auth.login(this.email, this.password);
   }
 }

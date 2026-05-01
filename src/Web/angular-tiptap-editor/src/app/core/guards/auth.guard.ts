@@ -6,6 +6,7 @@ export const authGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
   const router = inject(Router);
 
+  // Safe to read synchronously: APP_INITIALIZER guarantees loadCurrentUser() resolves before routing begins.
   if (auth.isAuthenticated()) {
     return true;
   }
