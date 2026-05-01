@@ -4,6 +4,7 @@ export const AppRoutePaths = {
   editor: 'editor',
   login: 'login',
   register: 'register',
+  alreadyAuthenticated: 'already-authenticated',
   notFound: '**',
 } as const;
 
@@ -12,4 +13,5 @@ export const AppRouteUrls = {
   editor: '/editor',
   authLogin: '/auth/login',
   authRegister: '/auth/register',
+  authAlreadyAuthenticated: '/auth/already-authenticated',
 } as const;

@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { AppRouteUrls } from '../../../core/routing/app-routes';
+import { AppRouteUrls } from '../../../../core/routing/app-routes';
 import { AuthService } from '../../services/auth.service';
 import { LoginFormComponent } from '../../components/login-form/login-form.component';
 
