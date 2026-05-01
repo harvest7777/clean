@@ -1,6 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { AppRouteUrls } from '../../../../core/routing/app-routes';
 
 @Component({
   selector: 'app-login-form',
@@ -8,6 +9,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './login-form.component.html',
 })
 export class LoginFormComponent {
+  protected readonly routes = AppRouteUrls;
   readonly isLoading = input(false);
   readonly errorMessage = input<string | null>(null);
   readonly submitted = output<{ email: string; password: string }>();

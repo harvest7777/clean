@@ -6,7 +6,7 @@
   }
 
   @if (isSuccess()) {
-    <p class="success">Account created! <a routerLink="/auth/login">Sign in</a></p>
+    <p class="success">Account created! <a [routerLink]="routes.authLogin">Sign in</a></p>
   } @else {
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <label>
@@ -22,6 +22,6 @@
       </button>
     </form>
 
-    <p>Already have an account? <a routerLink="/auth/login">Sign in</a></p>
+    <p>Already have an account? <a [routerLink]="routes.authLogin">Sign in</a></p>
   }
 </div>

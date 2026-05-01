@@ -1,6 +1,7 @@
 import { Routes } from "@angular/router";
+import { AppRoutePaths } from "../../core/routing/app-routes";
 import { LandingPageComponent } from "./pages/landing.page";
 
 export const LANDING_ROUTES: Routes = [
-  { path: "", component: LandingPageComponent },
+  { path: AppRoutePaths.home, component: LandingPageComponent },
 ];

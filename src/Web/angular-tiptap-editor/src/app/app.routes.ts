@@ -1,9 +1,10 @@
 import { Routes } from "@angular/router";
 import { authGuard } from "./core/guards/auth.guard";
+import { AppRoutePaths } from "./core/routing/app-routes";
 
 export const routes: Routes = [
   {
-    path: "editor",
+    path: AppRoutePaths.editor,
     canActivate: [authGuard],
     loadChildren: () =>
       import("./features/text-editor/text-editor.routes").then(
@@ -11,19 +12,19 @@ export const routes: Routes = [
       ),
   },
   {
-    path: "auth",
+    path: AppRoutePaths.auth,
     loadChildren: () =>
       import("./features/auth/auth.routes").then((m) => m.AUTH_ROUTES),
   },
   {
-    path: "",
+    path: AppRoutePaths.home,
     loadChildren: () =>
       import("./features/landing/landing.routes").then(
         (m) => m.LANDING_ROUTES
       ),
   },
   {
-    path: "**",
+    path: AppRoutePaths.notFound,
     loadChildren: () =>
       import("./features/not-found/not-found.routes").then(
         (m) => m.NOT_FOUND_ROUTES
