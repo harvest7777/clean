@@ -22,4 +22,11 @@ export const routes: Routes = [
         (m) => m.LANDING_ROUTES
       ),
   },
+  {
+    path: "**",
+    loadChildren: () =>
+      import("./features/not-found/not-found.routes").then(
+        (m) => m.NOT_FOUND_ROUTES
+      ),
+  },
 ];
