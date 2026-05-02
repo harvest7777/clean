@@ -1,14 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppRouteUrls } from '../../../routing/app-routes';
-import { AuthButtonComponent } from '../auth-button/auth-button.component';
+import { ButtonComponent } from '../../../../ui/components/button/button.component';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-auth-button-container',
-  imports: [AuthButtonComponent],
+  imports: [ButtonComponent],
   template: `
-    <app-auth-button
+    <app-button
       [label]="label()"
       [isLoading]="isLoading()"
       (pressed)="onPress()"

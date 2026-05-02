@@ -5,6 +5,16 @@ import { TerminalSpinnerComponent } from '../terminal-spinner/terminal-spinner.c
   selector: 'app-button',
   standalone: true,
   imports: [TerminalSpinnerComponent],
+  styles: [`
+    button {
+      padding: 0.5rem 0.75rem;
+      outline: 2px solid black;
+      outline-offset: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+  `],
   template: `
     <button type="button" [disabled]="isLoading()" (click)="pressed.emit()">
       @if (isLoading()) {

@@ -1,6 +1,11 @@
 /* Main Entry Point for Demo Application Styles */
 @import 'tailwindcss';
 
+a {
+    color: darkcyan;
+    text-decoration: underline;
+}
+
 @import "tailwindcss/utilities.css" layer(utilities);
 
 /* 1. Theme and Variables */
