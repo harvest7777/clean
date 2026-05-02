@@ -25,6 +25,10 @@ export class AuthService {
   private readonly config = inject(ApiConfiguration);
   private cachedStatus: CachedAuthStatus | null = null;
 
+  invalidateCache(): void {
+    this.cachedStatus = null;
+  }
+
   async login(email: string, password: string): Promise<void> {
     await firstValueFrom(
       apiUsersLoginPost(this.http, this.config.rootUrl, {
