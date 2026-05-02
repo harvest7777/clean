@@ -13,6 +13,11 @@ export type AuthStatus =
   | { kind: 'unavailable'; statusCode?: number; message?: string };
 
 @Injectable({ providedIn: 'root' })
+/*
+ * AuthService is the frontend boundary for authentication-related API calls.
+ * It performs login, registration, logout, and session verification, and
+ * translates backend or network failures into a small authentication status model.
+ */
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly config = inject(ApiConfiguration);
