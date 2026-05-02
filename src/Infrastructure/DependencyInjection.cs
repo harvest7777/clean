@@ -40,6 +40,15 @@ public static class DependencyInjection
             })
             .AddIdentityCookies();
 
+        builder.Services.ConfigureApplicationCookie(options =>
+        {
+            options.Events.OnRedirectToLogin = ctx =>
+            {
+                ctx.Response.StatusCode = 401;
+                return Task.CompletedTask;
+            };
+        });
+
         builder.Services.AddAuthorizationBuilder();
 
         builder.Services
