@@ -16,7 +16,7 @@ import { TerminalSpinnerComponent } from '../terminal-spinner/terminal-spinner.c
     }
   `],
   template: `
-    <button type="button" [disabled]="isLoading() || disabled()" (click)="pressed.emit()">
+    <button [type]="type()" [disabled]="isLoading() || disabled()" (click)="pressed.emit()">
       @if (isLoading()) {
         <app-terminal-spinner />
       } @else {
@@ -27,6 +27,7 @@ import { TerminalSpinnerComponent } from '../terminal-spinner/terminal-spinner.c
 })
 export class ButtonComponent {
   readonly label = input.required<string>();
+  readonly type = input<'button' | 'submit' | 'reset'>('button');
   readonly isLoading = input(false);
   readonly disabled = input(false);
   readonly pressed = output<void>();
