@@ -14,9 +14,7 @@
       Password
       <input type="password" formControlName="password" />
     </label>
-    <button type="submit" [disabled]="isLoading() || form.invalid">
-      {{ isLoading() ? 'Signing in…' : 'Sign in' }}
-    </button>
+    <button appButton  type="submit" [disabled]="isLoading() || form.invalid">Sign In</button>
   </form>
 
   <p>Don't have an account? <a [routerLink]="routes.authRegister">Register</a></p>

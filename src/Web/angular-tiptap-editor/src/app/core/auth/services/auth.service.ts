@@ -56,8 +56,13 @@ export class AuthService {
   }
 
   async logout(): Promise<void> {
-    await firstValueFrom(logout(this.http, this.config.rootUrl, { body: {} }));
-    this.cachedStatus = { kind: 'unauthenticated' };
+    try {
+      await firstValueFrom(logout(this.http, this.config.rootUrl, { body: {} }));
+    } catch (e) {
+      console.error(e)
+    } finally {
+      this.cachedStatus = { kind: "unauthenticated" };
+    }
   }
 
   async getAuthStatus(): Promise<AuthStatus> {

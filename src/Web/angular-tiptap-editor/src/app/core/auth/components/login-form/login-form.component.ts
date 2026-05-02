@@ -2,11 +2,12 @@ import { Component, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AppRouteUrls } from '../../../routing/app-routes';
+import { ButtonComponent } from "../../../../ui/components/button/button.component";
 
 @Component({
-  selector: 'app-login-form',
-  imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './login-form.component.html',
+  selector: "app-login-form",
+  imports: [ReactiveFormsModule, RouterLink, ButtonComponent],
+  templateUrl: "./login-form.component.html",
 })
 export class LoginFormComponent {
   protected readonly routes = AppRouteUrls;
@@ -15,11 +16,11 @@ export class LoginFormComponent {
   readonly submitted = output<{ email: string; password: string }>();
 
   readonly form = new FormGroup({
-    email: new FormControl('', {
+    email: new FormControl("", {
       nonNullable: true,
       validators: [Validators.required, Validators.email],
     }),
-    password: new FormControl('', {
+    password: new FormControl("", {
       nonNullable: true,
       validators: [Validators.required],
     }),
