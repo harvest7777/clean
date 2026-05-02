@@ -12,6 +12,8 @@ export type AuthStatus =
   | { kind: 'unauthenticated' }
   | { kind: 'unavailable'; statusCode?: number; message?: string };
 
+type CachedAuthStatus = Extract<AuthStatus, { kind: 'authenticated' | 'unauthenticated' }>;
+
 @Injectable({ providedIn: 'root' })
 /*
  * AuthService is the frontend boundary for authentication-related API calls.
@@ -21,6 +23,7 @@ export type AuthStatus =
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly config = inject(ApiConfiguration);
+  private cachedStatus: CachedAuthStatus | null = null;
 
   async login(email: string, password: string): Promise<void> {
     await firstValueFrom(
@@ -29,6 +32,7 @@ export class AuthService {
         body: { email, password },
       })
     );
+    this.cachedStatus = { kind: 'authenticated' };
   }
 
   async register(email: string, password: string): Promise<void> {
@@ -41,19 +45,26 @@ export class AuthService {
 
   async logout(): Promise<void> {
     await firstValueFrom(logout(this.http, this.config.rootUrl, { body: {} }));
+    this.cachedStatus = { kind: 'unauthenticated' };
   }
 
   async getAuthStatus(): Promise<AuthStatus> {
+    if (this.cachedStatus) {
+      return this.cachedStatus;
+    }
+
     try {
       await firstValueFrom(
         apiUsersManageInfoGet(this.http, this.config.rootUrl)
       );
-      return { kind: 'authenticated' };
+      this.cachedStatus = { kind: 'authenticated' };
+      return this.cachedStatus;
     } catch (e) {
       console.error(e);
       if (e instanceof HttpErrorResponse) {
         if (e.status === 401) {
-          return { kind: 'unauthenticated' };
+          this.cachedStatus = { kind: 'unauthenticated' };
+          return this.cachedStatus;
         }
 
         return {
