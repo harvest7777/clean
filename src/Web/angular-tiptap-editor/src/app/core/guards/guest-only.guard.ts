@@ -7,9 +7,14 @@ export const guestOnlyGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
   const router = inject(Router);
 
-  return auth
-    .checkAuth()
-    .then((isAuthenticated) =>
-      isAuthenticated ? router.parseUrl(AppRouteUrls.authAlreadyAuthenticated) : true
-    );
+  return auth.getAuthStatus().then((status) => {
+    switch (status.kind) {
+      case 'authenticated':
+        return router.parseUrl(AppRouteUrls.authAlreadyAuthenticated);
+      case 'unauthenticated':
+        return true;
+      case 'unavailable':
+        return router.parseUrl(AppRouteUrls.unavailable);
+    }
+  });
 };

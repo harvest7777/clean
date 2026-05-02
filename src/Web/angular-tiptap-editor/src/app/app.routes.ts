@@ -24,6 +24,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: AppRoutePaths.unavailable,
+    loadChildren: () =>
+      import('./features/unavailable/unavailable.routes').then(
+        (m) => m.UNAVAILABLE_ROUTES
+      ),
+  },
+  {
     path: AppRoutePaths.notFound,
     loadChildren: () =>
       import("./features/not-found/not-found.routes").then(

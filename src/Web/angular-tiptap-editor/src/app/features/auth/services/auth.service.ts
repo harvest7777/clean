@@ -7,6 +7,11 @@ import { apiUsersRegisterPost } from '../../../core/api/fn/users/api-users-regis
 import { apiUsersManageInfoGet } from '../../../core/api/fn/users/api-users-manage-info-get';
 import { logout } from '../../../core/api/fn/users/logout';
 
+export type AuthStatus =
+  | { kind: 'authenticated' }
+  | { kind: 'unauthenticated' }
+  | { kind: 'unavailable'; statusCode?: number; message?: string };
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
@@ -33,18 +38,45 @@ export class AuthService {
     await firstValueFrom(logout(this.http, this.config.rootUrl, { body: {} }));
   }
 
-  async checkAuth(): Promise<boolean> {
+  async getAuthStatus(): Promise<AuthStatus> {
     try {
       await firstValueFrom(
         apiUsersManageInfoGet(this.http, this.config.rootUrl)
       );
-      return true;
+      return { kind: 'authenticated' };
     } catch (e) {
-      if (e instanceof HttpErrorResponse && e.status === 401) {
-        return false;
+      if (e instanceof HttpErrorResponse) {
+        if (e.status === 401) {
+          return { kind: 'unauthenticated' };
+        }
+
+        return {
+          kind: 'unavailable',
+          statusCode: e.status || undefined,
+          message: this.getUnavailableMessage(e),
+        };
       }
 
-      throw e;
+      return {
+        kind: 'unavailable',
+        message: 'We could not verify your session right now.',
+      };
     }
+  }
+
+  private getUnavailableMessage(error: HttpErrorResponse): string {
+    if (error.status === 0) {
+      return 'The server could not be reached.';
+    }
+
+    if (error.status >= 500) {
+      return 'The server is temporarily unavailable.';
+    }
+
+    if (error.status === 404) {
+      return 'The authentication service is temporarily unavailable.';
+    }
+
+    return 'We could not verify your session right now.';
   }
 }
