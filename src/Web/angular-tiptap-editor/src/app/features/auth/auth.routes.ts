@@ -1,5 +1,4 @@
 import { Routes } from "@angular/router";
-import { authGuard } from "../../core/guards/auth.guard";
 import { AppRoutePaths } from "../../core/routing/app-routes";
 
 export const AUTH_ROUTES: Routes = [
@@ -13,14 +12,6 @@ export const AUTH_ROUTES: Routes = [
     loadComponent: () =>
       import("./pages/register/register.page").then(
         (m) => m.RegisterPageComponent
-      ),
-  },
-  {
-    path: AppRoutePaths.alreadyAuthenticated,
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import("./pages/already-authenticated/already-authenticated.page").then(
-        (m) => m.AlreadyAuthenticatedPageComponent
       ),
   },
   {
