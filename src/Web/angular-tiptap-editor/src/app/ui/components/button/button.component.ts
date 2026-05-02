@@ -6,18 +6,9 @@ import { TerminalSpinnerComponent } from '../terminal-spinner/terminal-spinner.c
   standalone: true,
   imports: [TerminalSpinnerComponent],
   host: {
+    'class': 'py-2 px-3 outline outline-2 outline-black outline-offset-0 border-0 rounded-none bg-transparent',
     '[disabled]': '_effectiveDisabled()',
   },
-  styles: [`
-    :host {
-      padding: 0.5rem 0.75rem;
-      outline: 2px solid black;
-      outline-offset: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-    }
-  `],
   template: `
     @if (isLoading()) {
       <app-terminal-spinner />
