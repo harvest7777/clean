@@ -24,17 +24,6 @@ export class LoginPageComponent {
 
     try {
       await this.auth.login(credentials.email, credentials.password);
-
-      const status = await this.auth.getAuthStatus();
-      if (status.kind !== 'authenticated') {
-        this.errorMessage.set(
-          status.kind === 'unavailable'
-            ? status.message ?? 'We could not verify your session right now.'
-            : 'Signed in but your session could not be verified. Please try again.'
-        );
-        return;
-      }
-
       await this.router.navigateByUrl(this.routes.editor);
     } catch (e) {
       this.errorMessage.set(this.getErrorMessage(e));
