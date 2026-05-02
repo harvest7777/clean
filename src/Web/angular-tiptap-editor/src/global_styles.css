@@ -1,19 +1,21 @@
 /* Main Entry Point for Demo Application Styles */
 
+@import 'tailwindcss';
+
 /* 1. Theme and Variables */
-@import "app/features/text-editor/styles/variables.css";
+@import "./app/features/text-editor/styles/variables.css";
 
 /* 2. Base Styles and Resets */
-@import "app/features/text-editor/styles/base.css";
+@import "./app/features/text-editor/styles/base.css";
 
 /* 3. Core UI Components */
-@import "app/features/text-editor/styles/ui-elements.css";
+@import "./app/features/text-editor/styles/ui-elements.css";
 
 /* 4. Layout: Sidebars and Panels */
-@import "app/features/text-editor/styles/panels.css";
+@import "./app/features/text-editor/styles/panels.css";
 
 /* 5. Specific Layout: Configuration Sections */
-@import "app/features/text-editor/styles/config-panel.css";
+@import "./app/features/text-editor/styles/config-panel.css";
 
 /* 6. Utility Classes */
-@import "app/features/text-editor/styles/utilities.css";
+@import "./app/features/text-editor/styles/utilities.css";
