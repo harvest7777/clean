@@ -30,13 +30,21 @@ export class AuthService {
   }
 
   async login(email: string, password: string): Promise<void> {
+    this.invalidateCache();
+
     await firstValueFrom(
       apiUsersLoginPost(this.http, this.config.rootUrl, {
         useCookies: true,
         body: { email, password },
       })
     );
-    this.cachedStatus = { kind: 'authenticated' };
+
+    // The login endpoint returning 200 does not guarantee the browser accepted the auth cookie,
+    // so verify the session before treating the user as authenticated in client state.
+    const status = await this.getAuthStatus();
+    if (status.kind !== 'authenticated') {
+      throw new Error('Login completed but the session could not be established.');
+    }
   }
 
   async register(email: string, password: string): Promise<void> {
