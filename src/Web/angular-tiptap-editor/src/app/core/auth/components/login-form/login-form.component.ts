@@ -1,17 +1,16 @@
 import { Component, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { AppRouteUrls } from '../../../../core/routing/app-routes';
+import { AppRouteUrls } from '../../../routing/app-routes';
 
 @Component({
-  selector: 'app-register-form',
+  selector: 'app-login-form',
   imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './register-form.component.html',
+  templateUrl: './login-form.component.html',
 })
-export class RegisterFormComponent {
+export class LoginFormComponent {
   protected readonly routes = AppRouteUrls;
   readonly isLoading = input(false);
-  readonly isSuccess = input(false);
   readonly errorMessage = input<string | null>(null);
   readonly submitted = output<{ email: string; password: string }>();
 

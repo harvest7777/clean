@@ -14,7 +14,7 @@ export const routes: Routes = [
   {
     path: AppRoutePaths.auth,
     loadChildren: () =>
-      import("./features/auth/auth.routes").then((m) => m.AUTH_ROUTES),
+      import("./core/auth/auth.routes").then((m) => m.AUTH_ROUTES),
   },
   {
     path: AppRoutePaths.home,

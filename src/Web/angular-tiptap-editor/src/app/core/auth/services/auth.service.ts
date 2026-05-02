@@ -1,11 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { ApiConfiguration } from '../../../core/api/api-configuration';
-import { apiUsersLoginPost } from '../../../core/api/fn/users/api-users-login-post';
-import { apiUsersRegisterPost } from '../../../core/api/fn/users/api-users-register-post';
-import { apiUsersManageInfoGet } from '../../../core/api/fn/users/api-users-manage-info-get';
-import { logout } from '../../../core/api/fn/users/logout';
+import { ApiConfiguration } from '../../api/api-configuration';
+import { apiUsersLoginPost } from '../../api/fn/users/api-users-login-post';
+import { apiUsersRegisterPost } from '../../api/fn/users/api-users-register-post';
+import { apiUsersManageInfoGet } from '../../api/fn/users/api-users-manage-info-get';
+import { logout } from '../../api/fn/users/logout';
 
 export type AuthStatus =
   | { kind: 'authenticated' }
