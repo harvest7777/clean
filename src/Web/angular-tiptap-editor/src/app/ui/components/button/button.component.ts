@@ -1,12 +1,15 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { TerminalSpinnerComponent } from '../terminal-spinner/terminal-spinner.component';
 
 @Component({
-  selector: 'app-button',
+  selector: 'button[appButton]',
   standalone: true,
   imports: [TerminalSpinnerComponent],
+  host: {
+    '[disabled]': '_effectiveDisabled()',
+  },
   styles: [`
-    button {
+    :host {
       padding: 0.5rem 0.75rem;
       outline: 2px solid black;
       outline-offset: 0;
@@ -16,19 +19,16 @@ import { TerminalSpinnerComponent } from '../terminal-spinner/terminal-spinner.c
     }
   `],
   template: `
-    <button [type]="type()" [disabled]="isLoading() || disabled()" (click)="pressed.emit()">
-      @if (isLoading()) {
-        <app-terminal-spinner />
-      } @else {
-        {{ label() }}
-      }
-    </button>
+    @if (isLoading()) {
+      <app-terminal-spinner />
+    } @else {
+      <ng-content />
+    }
   `,
 })
 export class ButtonComponent {
-  readonly label = input.required<string>();
-  readonly type = input<'button' | 'submit' | 'reset'>('button');
   readonly isLoading = input(false);
   readonly disabled = input(false);
-  readonly pressed = output<void>();
+
+  protected readonly _effectiveDisabled = computed(() => this.isLoading() || this.disabled());
 }

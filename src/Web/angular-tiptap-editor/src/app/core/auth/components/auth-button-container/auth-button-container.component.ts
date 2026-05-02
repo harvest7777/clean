@@ -8,11 +8,9 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-auth-button-container',
   imports: [ButtonComponent],
   template: `
-    <app-button
-      [label]="label()"
-      [isLoading]="isLoading()"
-      (pressed)="onPress()"
-    />
+    <button appButton [isLoading]="isLoading()" (click)="onPress()">
+      {{ label() }}
+    </button>
   `,
 })
 export class AuthButtonContainerComponent {
