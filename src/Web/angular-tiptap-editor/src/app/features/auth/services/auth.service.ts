@@ -45,6 +45,7 @@ export class AuthService {
       );
       return { kind: 'authenticated' };
     } catch (e) {
+      console.error(e);
       if (e instanceof HttpErrorResponse) {
         if (e.status === 401) {
           return { kind: 'unauthenticated' };
