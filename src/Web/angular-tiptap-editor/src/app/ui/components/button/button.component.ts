@@ -6,7 +6,7 @@ import { TerminalSpinnerComponent } from '../terminal-spinner/terminal-spinner.c
   standalone: true,
   imports: [TerminalSpinnerComponent],
   host: {
-    'class': 'py-2 px-3 outline outline-2 outline-black outline-offset-0 border-0 rounded-none bg-transparent',
+    'class': 'py-2 px-3 outline outline-2 outline-black outline-offset-0 border-0 rounded-none bg-transparent w-36 disabled:grayscale disabled:opacity-50',
     '[disabled]': '_effectiveDisabled()',
   },
   template: `
