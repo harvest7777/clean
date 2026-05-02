@@ -1,6 +1,10 @@
 /* Main Entry Point for Demo Application Styles */
 @import 'tailwindcss';
 
+* {
+    font-family: monospace;
+}
+
 a {
     color: darkcyan;
     text-decoration: underline;
