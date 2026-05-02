@@ -1,6 +1,7 @@
 /* Main Entry Point for Demo Application Styles */
-
 @import 'tailwindcss';
+
+@import "tailwindcss/utilities.css" layer(utilities);
 
 /* 1. Theme and Variables */
 @import "./app/features/text-editor/styles/variables.css";
