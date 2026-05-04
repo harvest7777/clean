@@ -1,6 +1,8 @@
-<app-register-form
-  [isLoading]="isLoading()"
-  [isSuccess]="isSuccess()"
-  [errorMessage]="errorMessage()"
-  (submitted)="onSubmit($event)"
-/>
+<div class="min-h-screen flex items-center justify-center">
+  <app-register-form
+    [isLoading]="isLoading()"
+    [isSuccess]="isSuccess()"
+    [errorMessage]="errorMessage()"
+    (submitted)="onSubmit($event)"
+  />
+</div>

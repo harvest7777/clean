@@ -2,10 +2,12 @@ import { Component, input, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AppRouteUrls } from '../../../routing/app-routes';
+import { ButtonComponent } from '../../../../ui/components/button/button.component';
+import { InputComponent } from '../../../../ui/components/input/input.component';
 
 @Component({
   selector: 'app-register-form',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, ButtonComponent, InputComponent],
   templateUrl: './register-form.component.html',
 })
 export class RegisterFormComponent {
