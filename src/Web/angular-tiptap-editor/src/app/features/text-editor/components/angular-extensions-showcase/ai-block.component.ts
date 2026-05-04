@@ -1,6 +1,6 @@
 import { Component, signal, ViewChild, ElementRef, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { AteAngularNodeView } from "angular-tiptap-editor";
+import { AteAngularNodeView } from "@flogeez/angular-tiptap-editor";
 import { ReactiveFormsModule, FormControl, Validators } from "@angular/forms";
 import { AppI18nService } from "../../services/app-i18n.service";
 import { simulateAiResponse } from "../../utils/ai-utils";

@@ -10,7 +10,7 @@ import {
   AteBubbleMenuConfig,
   ATE_TOOLBAR_KEYS,
   ATE_BUBBLE_MENU_KEYS,
-} from "angular-tiptap-editor";
+} from "@flogeez/angular-tiptap-editor";
 import { AppI18nService, CodeGeneration } from "./app-i18n.service";
 import { TOOLBAR_ITEMS, BUBBLE_MENU_ITEMS } from "../config/editor-items.config";
 import { ConfigItem, EditorState } from "../types/editor-config.types";

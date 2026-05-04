@@ -2,7 +2,7 @@ import { CounterNodeComponent } from "../components/angular-extensions-showcase/
 import { InfoBoxComponent } from "../components/ui/info-box.component";
 import { AiBlockComponent } from "../components/angular-extensions-showcase/ai-block.component";
 import { AiLoadingNodeComponent } from "../components/angular-extensions-showcase/ai-loading-node.component";
-import { RegisterAngularComponentOptions } from "angular-tiptap-editor";
+import { RegisterAngularComponentOptions } from "@flogeez/angular-tiptap-editor";
 
 /**
  * Showcase Extension Configs

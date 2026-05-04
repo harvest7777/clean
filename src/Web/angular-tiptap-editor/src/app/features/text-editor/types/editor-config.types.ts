@@ -1,4 +1,4 @@
-import { AteAutofocusMode, AteBlockControlsMode } from "angular-tiptap-editor";
+import { AteAutofocusMode, AteBlockControlsMode } from "@flogeez/angular-tiptap-editor";
 
 export interface ConfigItem {
   key: string;

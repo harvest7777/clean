@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, computed } from "@angular/core";
-import { AteAngularNodeView } from "angular-tiptap-editor";
+import { AteAngularNodeView } from "@flogeez/angular-tiptap-editor";
 import { ActionButtonComponent } from "../ui/action-button.component";
 
 /**

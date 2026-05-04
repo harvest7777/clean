@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule, FormControl, FormGroup } from "@angular/forms";
-import { AngularTiptapEditorComponent } from "angular-tiptap-editor";
+import { AngularTiptapEditorComponent } from "@flogeez/angular-tiptap-editor";
 
 @Component({
   selector: "app-form-control-test",

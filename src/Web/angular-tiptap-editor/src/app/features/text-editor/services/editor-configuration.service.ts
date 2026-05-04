@@ -14,7 +14,7 @@ import {
   AteEditorStateSnapshot,
   ATE_INITIAL_EDITOR_STATE,
   AteBlockControlsMode,
-} from "angular-tiptap-editor";
+} from "@flogeez/angular-tiptap-editor";
 import { EditorState, MenuState } from "../types/editor-config.types";
 import { AppI18nService } from "./app-i18n.service";
 import { ToastService } from "./toast.service";

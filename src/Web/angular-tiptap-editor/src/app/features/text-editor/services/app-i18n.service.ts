@@ -1,5 +1,5 @@
 import { Injectable, signal, computed, inject } from "@angular/core";
-import { SupportedLocale, AteI18nService } from "angular-tiptap-editor";
+import { SupportedLocale, AteI18nService } from "@flogeez/angular-tiptap-editor";
 
 export interface CodeGeneration {
   // General comments

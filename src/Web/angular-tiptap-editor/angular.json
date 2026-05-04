@@ -6,7 +6,6 @@
       "enabled": false
     }
   },
-  "newProjectRoot": "projects",
   "projects": {
     "demo": {
       "architect": {
@@ -37,7 +36,7 @@
             "scripts": [],
             "styles": [
               "node_modules/@fontsource/material-symbols-outlined/index.css",
-              "projects/angular-tiptap-editor/src/lib/styles/index.css",
+              "node_modules/@flogeez/angular-tiptap-editor/src/lib/styles/index.css",
               "src/global_styles.css"
             ],
             "tsConfig": "tsconfig.app.json"
@@ -68,43 +67,6 @@
       "root": "",
       "schematics": {},
       "sourceRoot": "src"
-    },
-    "angular-tiptap-editor": {
-      "projectType": "library",
-      "root": "projects/angular-tiptap-editor",
-      "sourceRoot": "projects/angular-tiptap-editor/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/angular-tiptap-editor/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/angular-tiptap-editor/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "projects/angular-tiptap-editor/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/angular-tiptap-editor/**/*.ts",
-              "projects/angular-tiptap-editor/**/*.html"
-            ],
-            "eslintConfig": "projects/angular-tiptap-editor/eslint.config.js"
-          }
-        }
-      }
     }
   },
   "version": 1

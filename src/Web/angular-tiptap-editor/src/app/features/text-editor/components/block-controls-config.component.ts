@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { SectionHeaderComponent } from "./ui";
 import { EditorConfigurationService } from "../services/editor-configuration.service";
 import { AppI18nService } from "../services/app-i18n.service";
-import { AteBlockControlsMode } from "angular-tiptap-editor";
+import { AteBlockControlsMode } from "@flogeez/angular-tiptap-editor";
 
 @Component({
   selector: "app-block-controls-config",

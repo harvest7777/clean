@@ -7,7 +7,7 @@ import {
   AteEditorConfig,
   AteAngularNode,
   AteI18nService,
-} from "angular-tiptap-editor";
+} from "@flogeez/angular-tiptap-editor";
 
 import { EditorActionsComponent } from "../components/editor-actions.component";
 import { CodeViewComponent } from "../components/code-view.component";
