@@ -1,5 +1,7 @@
-<app-login-form
-  [isLoading]="isLoading()"
-  [errorMessage]="errorMessage()"
-  (submitted)="onSubmit($event)"
-/>
+<div class="min-h-screen flex items-center justify-center">
+  <app-login-form
+    [isLoading]="isLoading()"
+    [errorMessage]="errorMessage()"
+    (submitted)="onSubmit($event)"
+  />
+</div>

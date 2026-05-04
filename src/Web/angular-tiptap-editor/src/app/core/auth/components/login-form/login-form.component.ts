@@ -3,10 +3,11 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { AppRouteUrls } from '../../../routing/app-routes';
 import { ButtonComponent } from "../../../../ui/components/button/button.component";
+import { InputComponent } from "../../../../ui/components/input/input.component";
 
 @Component({
   selector: "app-login-form",
-  imports: [ReactiveFormsModule, RouterLink, ButtonComponent],
+  imports: [ReactiveFormsModule, RouterLink, ButtonComponent, InputComponent],
   templateUrl: "./login-form.component.html",
 })
 export class LoginFormComponent {
